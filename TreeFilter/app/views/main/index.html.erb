@@ -1,2 +1,48 @@
-<h1>Main#index</h1>
-<p>Find me in app/views/main/index.html.erb</p>
+<h1>Tree struct filter</h1>
+
+<%= form_tag search_path do %>
+  <%= label_tag(:q, "Search for:") %>
+  <%= text_field_tag(:string) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<% if @itemTree != nil %>
+	<% levelCounter = 0 %>
+	<% nodeIds = Array.new %>
+
+	<% @itemTree.each do |item| %>
+		<!-- Koren -->
+		<% if(item.myId == item.parentId) %>
+			<% if(levelCounter > 0) %>
+				<% while levelCounter > 0 %>
+					<% levelCounter = levelCounter - 1 %>
+					</li>
+					</ul>
+				<% end %>
+			<% end %>
+
+			<% nodeIds.clear() %>
+
+			<% nodeIds.push(item.myId) %>
+			<% levelCounter = levelCounter + 1 %>
+			<ul>
+			<li>
+			<%= "#{item.text}" %>
+		<!-- Syn -->
+		<% else %>
+			<% if(item.parentId != nodeIds.last) %>
+				<% while item.parentId != nodeIds.last && levelCounter > 0 %>
+					<% nodeIds.pop %>
+					<% levelCounter = levelCounter - 1 %>
+					</li>
+					</ul>
+				<% end %>
+			<% end %>
+			<% nodeIds.push(item.myId) %>
+			<% levelCounter = levelCounter + 1 %>
+			<ul>
+			<li>
+			<%= "#{item.text}" %>
+		<% end %>
+	<% end %>
+<% end %>
