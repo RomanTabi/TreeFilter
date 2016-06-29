@@ -6,6 +6,7 @@
   <%= submit_tag("Search") %>
 <% end %>
 
+<div class="tree">
 <% if @itemTree != nil %>
 	<% levelCounter = 0 %>
 	<% nodeIds = Array.new %>
@@ -46,3 +47,4 @@
 		<% end %>
 	<% end %>
 <% end %>
+</div>
